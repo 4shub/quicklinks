@@ -6,6 +6,7 @@ from shutil import move
 from os import fdopen, remove
 import re
 from pathlib import Path
+import os.path
 
 # define errors
 class QuicklinksException(Exception):
@@ -108,9 +109,30 @@ def list_quicklinks():
         for line in file:
             print(line.strip())
 
+def list_help():
+    help_text = '''Standard quicklinks usage:
+ql <key> 
+
+Helper commands:
+    --set: allows you to set a new quick link
+        usage: ql --set <key> <url>
+    --remove: allows you to remove a quick link
+        usage: ql --remove <key>
+    --list: lists all your current quick links
+        usage: ql --list
+    '''
+
+    print(help_text)
+
+def check_if_quicklinks_file_exists():
+    if not os.path.exists(default_file_name):
+        print('.quicklinks file does not exist, create one at ~/.quicklinks')
+        exit(0)
 
 def operation_handler():
     check_for_invalid_index(1)
+
+    check_if_quicklinks_file_exists()
 
     operation = sys.argv[1]
     if not operation:
@@ -126,6 +148,10 @@ def operation_handler():
 
     if operation == '--list':
         list_quicklinks()
+        exit(0)
+
+    if operation == '--help':
+        list_help()
         exit(0)
 
     open_existing_link()

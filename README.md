@@ -1,7 +1,7 @@
 # Quicklinks
 Quicklinks is a short command-line script that allows you to quickly switch to a a pre-configured link.
 
-On OsX, this would be the same thing as doing the following:
+On OSx, this would be the same thing as doing the following:
 
 `ql google` -> `open https://google.com`
 

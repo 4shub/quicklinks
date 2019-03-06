@@ -77,7 +77,7 @@ def append_or_update_quicklink():
                 new_file.write(line)
 
         if not updated:
-            new_file.write('\n'+str_to_write+'\n')
+            new_file.write('\n%s\n' % str_to_write)
 
     remove(default_file_name)
     move(abs_path, default_file_name)
@@ -150,8 +150,6 @@ def open_existing_link():
         webbrowser.open(domain, new=0, autoraise=True)
 
     search_for_value(sys.argv[1], open_link)
-
-
 
 def get_exception():
     """Helper function to work with py2.4-py3 for getting the current

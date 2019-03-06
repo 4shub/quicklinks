@@ -12,12 +12,13 @@ setup(
     description='Quickly navigate to websites based on shorthands you provide',
     long_description=read_file('README.md'),
     url='https://github.com/4shub/quicklinks/',
-    py_modules=['quicklinks'],
+    py_modules=['quicklinks', 'quicklinks_service'],
     zip_safe=False,
     license='MIT',
     entry_points= {
         "console_scripts": [
             "ql = quicklinks:main",
+            "qls = quicklinks_service:main"
         ]
     }
 )

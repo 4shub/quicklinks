@@ -4,7 +4,7 @@ const SERVER_BASE = 'http://localhost:1867';
 /* Endpoints */
 const endpoints = {
     IS_ALIVE: '/status',
-    WEBSITE: '/website',
+    WEBSITE: '/website'
 };
 
 /**

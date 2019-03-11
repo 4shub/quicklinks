@@ -4,6 +4,9 @@
   "manifest_version": 2,
   "description": "Quickly create quicklinks from your browser",
   "homepage_url": "http://quicklinks.shub.club",
+  "permissions": [
+    "tabs"
+  ],
   "browser_action": {
     "default_title": "browser action demo",
     "default_popup": "src/index.html"

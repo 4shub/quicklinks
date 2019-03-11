@@ -86,3 +86,9 @@ function addWebsiteToQuicklinks() {
         .then(success)
         .catch(fail);
 }
+
+window.onload = function (ev) {
+    chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+        document.getElementById("current-url").value = tabs[0].url;
+    });
+}

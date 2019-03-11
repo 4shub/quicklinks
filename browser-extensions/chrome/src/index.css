@@ -1,17 +1,25 @@
+body {
+    margin: 0;
+}
+
 .modal {
-    padding: 10px;
     width: 300px;
-    font-family: Helvetica, Ubuntu, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    font-size: 14px;
-    margin: 25px 0;
+    font-size: 16px;
 }
 
 #connected {
+    display: block;
+}
+
+#not-connected {
     display: none;
+    padding: 10px;
+    margin: 25px 0;
 }
 
 .alert-icon {
@@ -49,4 +57,70 @@ code {
 .help-link {
     text-decoration: underline;
     color: #A4A4A4;
+}
+
+header {
+    font-weight: 600;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid #B8B8B8;
+    display: inline-block;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+main {
+    padding: 20px;
+}
+
+header h1 {
+    font-size: 16px;
+    margin: 0;
+}
+
+h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+button {
+    color: #fff;
+    background-color: #6BA3FC;
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 3px;
+    font-size: inherit;
+    border: 0;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+input {
+    background-color: #fff;
+    border: 1px solid #EDEDED;
+    padding: 10px 8px;
+    color: #333;
+    font-size: inherit;
+}
+
+input[disabled] {
+    background-color: #F5F5F5;
+    color: #777777;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }

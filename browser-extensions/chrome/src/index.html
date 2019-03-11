@@ -1,17 +1,31 @@
 <!doctype html>
-<style type="text/css">
-	#mainPopup {
-		padding: 10px;
-		height: 300px;
-		width: 200px;
-		font-family: Helvetica, Ubuntu, Arial, sans-serif;
-	}
-	h1 {
-		font-size: 2em;
-	}
-</style>
 <script src="index.js"></script>
-
-<div id="mainPopup">
+<link href="index.css" rel="stylesheet">
+<div class="modal center-text" id="not-connected">
+    <div class="alert-icon">!</div>
+    <h3>Your Quicklinks server is not on!</h3>
+    <p>Turn it on by enterering the command below in your terminal</p>
+    <code>sudo ql --start-server</code>
+    <p>
+        <a href="https://github.com/4shub/quicklinks/blob/master/SERVER.md#notes" class="help-link">Why do I need to turn on a server?</a>
+    </p>
+</div>
+<div class="modal" id="connected">
+    <header>
+        <h1>Quicklinks</h1>
+    </header>
+    <h2>Add a Quicklink</h2>
+    <div class="input-container">
+        <label for="link-name">Quicklink Name</label>
+        <input name="link-name" placeholder="your-link-name-here">
+    </div>
+    <div class="input-container">
+        <label for="current-url">Current URL</label>
+        <input name="current-url" placeholder="url" disabled>
+    </div>
+    <div>
+        <button>Save Quicklink</button>
+        <a class="help-link" href="https://github.com/4shub/quicklinks/issues">Report an Issue</a>
+    </div>
 
 </div>

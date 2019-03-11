@@ -1,0 +1,52 @@
+.modal {
+    padding: 10px;
+    width: 300px;
+    font-family: Helvetica, Ubuntu, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    margin: 25px 0;
+}
+
+#connected {
+    display: none;
+}
+
+.alert-icon {
+    width: 95px;
+    height: 95px;
+    background-color: #6BA3FC;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 56px;
+    color: #fff;
+    margin: 0 0 25px;
+}
+
+h3 {
+    font-size: 16px;
+    margin: 0;
+}
+
+.center-text {
+    text-align: center;
+}
+
+code {
+    background: #F5F5F5;
+    border: 1px solid #EDEDED;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 20px 0;
+    display: block;
+    width: 200px;
+}
+
+.help-link {
+    text-decoration: underline;
+    color: #A4A4A4;
+}

@@ -53,11 +53,13 @@ function checkForServerExistence() {
             return serverIsOff();
         }
 
-        document.getElementById('start_server_modal').style.display = 'none';
+        document.getElementById('not-connected').style.display = 'none';
+        document.getElementById('connected').style.display = 'block';
     }
 
     function serverIsOff() {
-        document.getElementById('start_server_modal').style.display = 'block';
+        document.getElementById('connected').style.display = 'none';
+        document.getElementById('not-connected').style.display = 'block';
     }
 
 

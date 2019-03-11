@@ -7,6 +7,7 @@ from os import fdopen, remove
 import re
 from pathlib import Path
 import os.path
+import api
 
 # define errors
 class QuicklinksException(Exception):
@@ -129,6 +130,7 @@ def check_if_quicklinks_file_exists():
         print('.quicklinks file does not exist, create one at ~/.quicklinks')
         exit(0)
 
+
 def operation_handler():
     check_for_invalid_index(1)
 
@@ -137,6 +139,17 @@ def operation_handler():
     operation = sys.argv[1]
     if not operation:
         exit(1)
+
+    if operation == '--start-server':
+        if len(sys.argv) > 2 and sys.argv[2] == 'debug':
+            api.start_server_debug()
+        else:
+            api.start_server()
+        exit(0)
+
+    if operation == '--stop-server':
+        api.kill_server()
+        exit(0)
 
     if operation == '--set':
         append_or_update_quicklink()

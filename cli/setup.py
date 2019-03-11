@@ -13,6 +13,8 @@ setup(
     long_description=read_file('../README.md'),
     url='https://github.com/4shub/quicklinks/',
     py_modules=['quicklinks'],
+    packages=['api'],
+    install_requires=read_file('./requirements.txt'),
     zip_safe=False,
     license='MIT',
     entry_points= {

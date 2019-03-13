@@ -2,40 +2,55 @@ import subprocess
 
 from psutil import process_iter
 from signal import SIGTERM
-from flask import Flask, request
+from flask import Flask, Response, request, jsonify
 from api.actions import *
 
 
 
 app = Flask(__name__)
 
+def generate_response(data = '', status = 200):
+    return data, status
+
+@app.after_request
+def add_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
+    response.headers['Access-Control-Allow-Methods'] = 'GET,HEAD,OPTIONS,POST,PUT'
+    response.headers['Access-Control-Allow-Headers'] = 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
+
+    return response
+
 @app.route('/status')
 def status():
-    return Flask.jsonify(status= 'online')
+    return jsonify(status= 'online')
 
 def post_website():
-    key = request.form.get('key')
-    value = request.form.get('value')
+    data = request.get_json()
+
+    key = data.get('key')
+    url = data.get('url')
 
     if not key:
-        return Flask.jsonify(error= 'key not provided'), 400
+        return generate_response(jsonify(error= 'key not provided'), 400)
 
-    if not value:
-        return Flask.jsonify(error= 'value not provided'), 400
+    if not url:
+        return generate_response(jsonify(error= 'url not provided'), 400)
 
-    api.append_or_update_quicklink(key, value)
+    append_or_update_quicklink(key, url)
 
-    return Flask.jsonify(status= 'done'), 201
+    return generate_response(jsonify(status='done'), 201)
 
 def delete_website():
-    key = request.form.get('key')
+    data = request.get_json()
+    key = data.get('key')
 
     if not key:
-        return Flask.jsonify(error= 'key not provided'), 400
+        return generate_response(jsonify(error='key not provided'), 400)
 
-    api.remove_quicklink(key)
+    remove_quicklink(key)
 
-    return Flask.jsonify(status= 'done')
+    return generate_response(jsonify(status='done'))
 
 @app.route('/website', methods=['POST', 'DELETE'])
 def website():
@@ -46,9 +61,9 @@ def website():
         if request.method == 'DELETE':
             return delete_website()
 
-        return Flask.jsonify(status= 'None'), 404
+        return generate_response(jsonify(status='None'), 404)
     except:
-        return Flask.jsonify(error= 'server side error'), 500
+        return generate_response(jsonify(error='server side error'), 500)
 
 
 def start_server_debug():

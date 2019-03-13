@@ -103,6 +103,7 @@ button {
     border: 0;
     cursor: pointer;
     margin-bottom: 20px;
+    margin: 15px 0 10px;
 }
 
 input {

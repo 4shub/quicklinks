@@ -4,7 +4,6 @@ from os import fdopen, remove
 from pathlib import Path
 
 import os
-import re
 
 # default file path for ~/.quicklinks on computer
 default_file_name = os.path.join(str(Path.home()), '.quicklinks')
@@ -41,7 +40,7 @@ def append_or_update_quicklink(key, url):
                 new_file.write(line)
 
         if not updated:
-            new_file.write('\n%s\n' % str_to_write)
+            new_file.write('\n\n%s\n' % str_to_write)
 
     remove(default_file_name)
     move(abs_path, default_file_name)

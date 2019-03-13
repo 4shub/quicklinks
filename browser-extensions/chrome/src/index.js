@@ -17,7 +17,13 @@ function request(requestData) {
         const http = new XMLHttpRequest();
 
         http.onload = function(e) {
-            return resolve(e);
+            const statusCode = e.target.status;
+
+            if (statusCode === 200 || statusCode === 201) {
+                return resolve(e);
+            }
+
+            return reject(e);
         };
 
         http.onerror = function(e) {
@@ -29,7 +35,7 @@ function request(requestData) {
         };
 
 
-        http.open(requestData.type || 'GET', requestData.url);
+        http.open(requestData.type || 'GET', SERVER_BASE + requestData.url);
 
         http.responseType = 'application/json';
 
@@ -71,24 +77,44 @@ function checkForServerExistence() {
 /**
  * Adds a website to qucklinks
  */
-function addWebsiteToQuicklinks() {
-    const currentURL = window.location.pathname;
+function saveQuicklink() {
+    const key = document.getElementById('link-name').value;
+    const currentURL = document.getElementById('current-url').value;
+
+    const saveQuickLinkButtonEl = document.getElementById('save-quicklink');
+
+    function updateQuicklinkButtonText(text, disabledStatus) {
+        saveQuickLinkButtonEl.innerText = text;
+        saveQuickLinkButtonEl.disabled = disabledStatus || false;
+    }
 
     function success() {
-        
+        updateQuicklinkButtonText('Saved Quicklink');
+    }
+
+    function onfinally() {
+        setTimeout(function () {
+            updateQuicklinkButtonText('Save Quicklink');
+        }, 2500);
     }
     
     function fail() {
-
+        updateQuicklinkButtonText('Saving Quicklink Failed!');
     }
+
+    updateQuicklinkButtonText('Saving Quicklink...', true);
     
-    request({ type: 'POST', url: endpoints.WEBSITE, data: { url: currentURL } })
+    request({ type: 'POST', url: endpoints.WEBSITE, data: { url: currentURL, key: key } })
         .then(success)
-        .catch(fail);
+        .catch(fail)
+        .finally(onfinally)
 }
 
 window.onload = function (ev) {
     chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
         document.getElementById("current-url").value = tabs[0].url;
     });
+
+    // bind elements
+    document.getElementById('save-quicklink').addEventListener('click', saveQuicklink);
 }

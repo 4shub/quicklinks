@@ -18,9 +18,16 @@ function request(requestData) {
 
         http.onload = function(e) {
             const statusCode = e.target.status;
+            var data = e.target.response;
+
+            try {
+                data = JSON.parse(data);
+            } catch (e) {
+
+            }
 
             if (statusCode === 200 || statusCode === 201) {
-                return resolve(e);
+                return resolve(data);
             }
 
             return reject(e);
@@ -55,17 +62,18 @@ function request(requestData) {
  */
 function checkForServerExistence() {
     function serverIsOn(e) {
+        console.log(e)
         if (e.status !== 'online') {
             return serverIsOff();
         }
 
         document.getElementById('not-connected').style.display = 'none';
-        document.getElementById('connected').style.display = 'block';
+        document.getElementById('connected').style.display = 'flex';
     }
 
     function serverIsOff() {
         document.getElementById('connected').style.display = 'none';
-        document.getElementById('not-connected').style.display = 'block';
+        document.getElementById('not-connected').style.display = 'flex';
     }
 
 
@@ -110,7 +118,14 @@ function saveQuicklink() {
         .finally(onfinally)
 }
 
+
 window.onload = function (ev) {
+    checkForServerExistence();
+
+    setInterval(function () {
+        checkForServerExistence();
+    }, 2500);
+
     chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
         document.getElementById("current-url").value = tabs[0].url;
     });

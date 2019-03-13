@@ -1,9 +1,8 @@
 import subprocess
-import request
 
 from psutil import process_iter
 from signal import SIGTERM
-from flask import Flask
+from flask import Flask, request
 from api.actions import *
 
 

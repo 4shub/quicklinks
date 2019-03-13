@@ -8,9 +8,6 @@ import api
 # define constants
 default_file_name = api.get_file_name()
 
-# define errors
-class QuicklinksException(Exception):
-    """Base exception for this module"""
 
 def check_for_invalid_index(argIndex, errMessage = ''):
     if len(sys.argv) <= argIndex:
@@ -26,6 +23,37 @@ def check_if_quicklinks_file_exists():
         print('.quicklinks file does not exist, create one at ~/.quicklinks')
         exit(0)
 
+def cli_help_text():
+    help_text = '''Standard quicklinks usage:
+ql <key> 
+
+Helper commands:
+    --set: allows you to set a new quick link
+        usage: ql --set <key> <url>
+    --remove: allows you to remove a quick link
+        usage: ql --remove <key>
+    --list: lists all your current quick links
+        usage: ql --list
+    '''
+
+    print(help_text)
+
+
+
+def open_existing_link(search_key):
+    """
+    Opens a link given particular key
+
+    :param search_key: key to search in the quicklinks file
+    :return:
+    """
+    def open_link(shortcut, domain):
+        webbrowser.open(domain, new=0, autoraise=True)
+
+    did_succeed = api.search_for_value(search_key, open_link)
+
+    if not did_succeed:
+        raise ValueError('No quicklink found for this key! \nPlease edit your ~/.quicklinks file or use ql --set <key> <url>')
 
 def operation_handler():
     check_for_invalid_index(1)
@@ -33,6 +61,7 @@ def operation_handler():
     check_if_quicklinks_file_exists()
 
     operation = sys.argv[1]
+
     if not operation:
         exit(1)
 
@@ -41,13 +70,11 @@ def operation_handler():
             api.start_server_debug()
         else:
             api.start_server()
-        exit(0)
 
-    if operation == '--stop-server':
+    elif operation == '--stop-server':
         api.kill_server()
-        exit(0)
 
-    if operation == '--set':
+    elif operation == '--set':
         append_err_msg = 'You need to provide two values when using --set, the key and value \n example: ql --set google https://google.com'
         check_for_invalid_index(2, append_err_msg)
         check_for_invalid_index(3, append_err_msg)
@@ -56,47 +83,29 @@ def operation_handler():
         domain = sys.argv[3]
 
         api.append_or_update_quicklink(key, domain)
-        exit(0)
 
-    if operation == '--remove':
+    elif operation == '--remove':
         append_err_msg = 'You need to provide one value when using --remove, the key to what you want to delete \n example: ql --remove google'
         check_for_invalid_index(2, append_err_msg)
 
         key = sys.argv[2]
 
         api.remove_quicklink(key)
-        exit(0)
 
-    if operation == '--list':
-        api.list_quicklinks()
-        exit(0)
+    elif operation == '--list':
+        quicklinks_list = api.list_quicklinks()
 
-    if operation == '--help':
-        api.list_help()
-        exit(0)
+        print(quicklinks_list)
 
-    open_existing_link()
+    elif operation == '--help':
+        cli_help_text()
+    else:
+        # if there are no special arguments provided then run quicklinks
+        key = sys.argv[1]
 
-def search_for_value(search_key, callback):
-    with open(default_file_name) as file:
-        for line in file:
-            line = line.strip()
+        open_existing_link(key)
 
-            if not line:
-                continue
-
-            try:
-                shortcut, domain = line.split(':', 1)
-                if shortcut == search_key:
-                    callback(shortcut, domain)
-            except ValueError:
-                raise QuicklinksException('bad')
-
-def open_existing_link():
-    def open_link(shortcut, domain):
-        webbrowser.open(domain, new=0, autoraise=True)
-
-    search_for_value(sys.argv[1], open_link)
+    exit(0)
 
 def get_exception():
     """Helper function to work with py2.4-py3 for getting the current
@@ -109,7 +118,7 @@ def main():
         operation_handler()
     except KeyboardInterrupt:
         print('goodbye!')
-    except (QuicklinksException, SystemExit):
+    except (ValueError, SystemExit):
         e = get_exception()
 
         # Ignore a successful exit, or argparse exit

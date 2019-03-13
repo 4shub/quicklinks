@@ -6,36 +6,26 @@ from pathlib import Path
 import os
 import re
 
-# define constants
+# default file path for ~/.quicklinks on computer
 default_file_name = os.path.join(str(Path.home()), '.quicklinks')
 
 def get_file_name():
     return default_file_name
 
-# Taken from django
-# https://github.com/django/django/blob/master/django/core/validators.py
-is_website_regex = re.compile(
-    r'^(?:http|file)s?://' # http:// or https://
-    r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
-    r'localhost|' #localhost...
-    r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
-    r'(?::\d+)?' # optional port
-    r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
-def check_if_valid_domain(domain):
-    if re.match(is_website_regex, domain) is None:
-        print('You have not provided a valid domain, for now please add http:// or https:// to the start of domains')
-        exit(0)
+def append_or_update_quicklink(key, url):
+    """
+    Adds a quicklink to the ~/.quicklinks file or updates an existing quicklink given a key and url
 
-
-def append_or_update_quicklink(key, domain):
-    check_if_valid_domain(domain)
+    :param key: key of quicklink to add/update
+    :param url: url of a website to quicklink to
+    """
 
     updated = False
 
     fh, abs_path = mkstemp()
 
-    str_to_write = '%s:%s' % (key, domain)
+    str_to_write = '%s:%s' % (key, url)
 
     with fdopen(fh, 'w') as new_file, open(default_file_name) as old_file:
         for line in old_file:
@@ -57,6 +47,12 @@ def append_or_update_quicklink(key, domain):
     move(abs_path, default_file_name)
 
 def remove_quicklink(key):
+    """
+    Removes quicklink from ~/.quicklinks file
+
+    :param key: key of quicklink to delete
+    """
+
     fh, abs_path = mkstemp()
 
     with fdopen(fh, 'w') as new_file, open(default_file_name) as old_file:
@@ -73,21 +69,42 @@ def remove_quicklink(key):
     move(abs_path, default_file_name)
 
 def list_quicklinks():
+    """
+    Returns a list of QuickLinks
+    :return: list<String> list of quick links
+    """
+
+    quicklinks_list = []
+
     with open(default_file_name) as file:
         for line in file:
-            print(line.strip())
+            quicklinks_list.append(line.strip())
 
-def list_help():
-    help_text = '''Standard quicklinks usage:
-ql <key> 
+    return quicklinks_list
 
-Helper commands:
-    --set: allows you to set a new quick link
-        usage: ql --set <key> <url>
-    --remove: allows you to remove a quick link
-        usage: ql --remove <key>
-    --list: lists all your current quick links
-        usage: ql --list
-    '''
+def search_for_value(search_key, callback):
+    """
+    Searches for a quicklink in ~/.quicklinks file
+    :param search_key: key to search in the quicklinks file
+    :param callback: callback to run after finding the search value
+    :return:
+    """
 
-    print(help_text)
+    succeeded = False
+
+    with open(default_file_name) as file:
+        for line in file:
+            line = line.strip()
+
+            if not line:
+                continue
+
+            try:
+                shortcut, domain = line.split(':', 1)
+                if shortcut == search_key:
+                    succeeded = True
+                    callback(shortcut, domain)
+            except ValueError:
+                raise 'An error has occured'
+
+    return succeeded

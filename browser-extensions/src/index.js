@@ -62,7 +62,6 @@ function request(requestData) {
  */
 function checkForServerExistence() {
     function serverIsOn(e) {
-        console.log(e)
         if (e.status !== 'online') {
             return serverIsOff();
         }
@@ -105,7 +104,7 @@ function saveQuicklink() {
             updateQuicklinkButtonText('Save Quicklink');
         }, 2500);
     }
-    
+
     function fail() {
         updateQuicklinkButtonText('Saving Quicklink Failed!');
     }
@@ -118,7 +117,6 @@ function saveQuicklink() {
         .finally(onfinally)
 }
 
-
 window.onload = function (ev) {
     checkForServerExistence();
 
@@ -126,8 +124,8 @@ window.onload = function (ev) {
         checkForServerExistence();
     }, 2500);
 
-    chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
-        document.getElementById("current-url").value = tabs[0].url;
+    getCurrentUrl().then(function (urlName) {
+        document.getElementById("current-url").value = urlName;
     });
 
     // bind elements

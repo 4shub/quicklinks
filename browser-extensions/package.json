@@ -1,0 +1,10 @@
+{
+  "name": "Quicklinks",
+  "version": "0.0.1",
+  "description": "Quickly create quicklinks from your browser",
+  "browsersSupported": ["chrome", "firefox"],
+  "license": "MIT",
+  "scripts": {
+    "compile" : "node ./config.js"
+  }
+}

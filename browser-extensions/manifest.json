@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "homepage_url": "http://quicklinks.shub.club",
+  "browser_action": {
+    "default_title": "Quicklinks",
+    "default_popup": "src/index.html"
+  },
+  "specifics": {
+    "chrome": {
+      "permissions": [
+        "tabs",
+        "*://localhost:1867/*"
+      ]
+    },
+    "firefox": {
+      "permissions": [
+        "activeTab",
+        "*://localhost:1867/*"
+      ]
+    }
+  }
+}

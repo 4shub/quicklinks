@@ -28,7 +28,6 @@
 
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
         <link href="index.css" rel="stylesheet">
-
     </head>
     <body>
         <noscript>
@@ -91,4 +90,23 @@
             </menu>
         </footer>
     </body>
+    <script>
+        (function () {
+            if (navigator.doNotTrack) {
+                return;
+            }
+
+            (function(f, a, t, h, o, m){
+                a[h]=a[h]||function(){
+                    (a[h].q=a[h].q||[]).push(arguments)
+                };
+                o=f.createElement('script'),
+                    m=f.getElementsByTagName('script')[0];
+                o.async=1; o.src=t; o.id='fathom-script';
+                m.parentNode.insertBefore(o,m)
+            })(document, window, '//analytics.shub.club/tracker.js', 'fathom');
+            fathom('set', 'siteId', 'OMXDP');
+            fathom('trackPageview');
+        })();
+    </script>
 </html>

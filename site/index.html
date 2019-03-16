@@ -32,6 +32,11 @@
     </head>
     <body>
         <noscript>
+            <style>
+                .hideOnNoScript {
+                    display: none !important;
+                }
+            </style>
             <div class="cultured-man applyShadow">"Ah, I see you are a man of culture as well." -- <a href="https://i.kym-cdn.com/photos/images/newsfeed/001/414/033/43d.gif">[source]</a></div>
         </noscript>
         <header>
@@ -41,7 +46,7 @@
         </header>
         <main>
             <div class="demo-video--container applyShadow">
-                <div id="demo-play-container" class="applyShadow noBorder demo-video--play-button--container">
+                <div id="demo-play-container" class="applyShadow noBorder demo-video--play-button--container hideOnNoScript">
                     <div tabindex="1" id="demo-play-button" class="demo-video--play-button"></div>
                     <div class="demo-video--filename">demo.mp4</div>
                 </div>

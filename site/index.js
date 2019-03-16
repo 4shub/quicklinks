@@ -8,8 +8,6 @@ function renderPlayButton() {
 
     demoVideo.controls = false;
 
-    playContainer.style.display = 'flex';
-
     /**
      * Plays video, returns video control tools back
      */

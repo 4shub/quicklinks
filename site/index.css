@@ -58,6 +58,7 @@ main {
     width: 100%;
     position: relative;
     z-index: 9;
+    display: flex;
     height: 100%;
     align-items: center;
     justify-content: center;
@@ -65,7 +66,6 @@ main {
     background-color: #000;
     border: 5px solid #fff;
     flex-direction: column;
-    display: none;
 }
 
 .demo-video--play-button {

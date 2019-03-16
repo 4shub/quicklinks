@@ -22,9 +22,6 @@ header {
     height: 90px;
 }
 
-.github-banner {
-    display: none;
-}
 
 header {
     z-index: 100;
@@ -301,18 +298,6 @@ footer ul:not(:last-child)::after {
     
     .github-corner {
         display: none;
-    }
-
-    .github-banner {
-        display: block;
-        width: 100%;
-        padding: 20px;
-        font-family: Consolas, monaco, monospace;
-        text-align: center;
-        background-color: #000;
-        font-size: 14px;
-        color: #fff;
-        margin: 0;
     }
 
     .demo-video {

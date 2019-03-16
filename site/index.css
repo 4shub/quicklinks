@@ -54,6 +54,36 @@ main {
     position: relative;
 }
 
+.demo-video--play-button--container {
+    width: 100%;
+    position: relative;
+    z-index: 9;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #000;
+    border: 5px solid #fff;
+    flex-direction: column;
+    display: none;
+}
+
+.demo-video--play-button {
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 30px solid #fff;
+    margin-top: 25px;
+}
+
+.demo-video--filename {
+    font-family: Consolas, monaco, monospace;
+    color: #fff;
+    font-size: 12px;
+    margin-top: 25px;
+}
+
 .demo-video {
     width: 450px;
     border-radius: 5px;
@@ -178,7 +208,7 @@ code.terminal {
     Functions
  */
 
-.applyShadow {
+.applyShadow:not(.noBorder) {
     box-shadow: 2px 2px 2px 1px rgba(219,219,219,0.50);
     border: 1px solid #eaeaea;
 }

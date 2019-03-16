@@ -28,6 +28,7 @@
 
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
         <link href="index.css" rel="stylesheet">
+        <script src="index.js"></script>
     </head>
     <body>
         <noscript>
@@ -40,7 +41,12 @@
         </header>
         <main>
             <div class="demo-video--container applyShadow">
+                <div id="demo-play-container" class="applyShadow noBorder demo-video--play-button--container">
+                    <div tabindex="1" id="demo-play-button" class="demo-video--play-button"></div>
+                    <div class="demo-video--filename">demo.mp4</div>
+                </div>
                 <video
+                    id="demo-video"
                     aria-label='Video demonstrating how this utility is used. Please read captions to get context'
                     class="demo-video"
                     controls
@@ -94,7 +100,7 @@
         (function () {
             /** Do not track settings **/
             if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
-                if (window.doNotTrack === '1' || navigator.doNotTrack === 'yes' || navigator.doNotTrack == '1' || navigator.msDoNotTrack == '1' || window.external.msTrackingProtectionEnabled()) {
+                if (window.doNotTrack === '1' || navigator.doNotTrack === 'yes' || navigator.doNotTrack == '1' || navigator.msDoNotTrack == '1' || (window.external && window.external.msTrackingProtectionEnabled && window.external.msTrackingProtectionEnabled())) {
                     return;
                 }
             }

@@ -34,6 +34,14 @@ Helper commands:
         usage: ql --remove <key>
     --list: lists all your current quick links
         usage: ql --list
+    
+Server commands:
+    --start-server: Starts Quicklinks Server
+        usage: ql --start-server
+    --start-server debug: Starts Quicklinks server in debug mode
+        usage: ql --start-server debug
+    --stop-server: Stops Quicklinks Server
+        usage: ql --stop-server
     '''
 
     print(help_text)

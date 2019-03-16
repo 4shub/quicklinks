@@ -5,6 +5,7 @@ function renderPlayButton() {
     const playContainer = document.getElementById('demo-play-container');
     const playButton = document.getElementById('demo-play-button');
     const demoVideo = document.getElementById('demo-video');
+    const demoContainer = document.getElementById('demo-video-container');
 
     demoVideo.controls = false;
 
@@ -14,7 +15,8 @@ function renderPlayButton() {
     function playVideo() {
         demoVideo.play();
 
-        playContainer.style.display = 'none';
+        demoContainer.classList.add('clickedFirstTime');
+
         demoVideo.controls = true;
     }
 

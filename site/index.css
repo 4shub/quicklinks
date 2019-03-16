@@ -19,7 +19,15 @@ body {
     Header Content
  */
 header {
-    margin: 30px;
+    height: 90px;
+}
+
+.github-banner {
+    display: none;
+}
+
+header {
+    z-index: 100;
 }
 
 h1 {
@@ -29,6 +37,7 @@ h1 {
 
 menu {
     padding: 0;
+    margin: 0;
 }
 
 /**
@@ -36,7 +45,10 @@ menu {
  */
 
 main {
-    width: 690px;
+    max-width: 690px;
+    padding: 0 20px;
+    min-width: 250px;
+    width: 100%;
     align-self: center;
     flex-direction: column;
     display: flex;
@@ -46,12 +58,13 @@ main {
 }
 
 .demo-video--container {
-    width: 450px;
+    max-width: 450px;
     height: 268px;
     overflow: hidden;
-    background-color: #E9E9E9;
+    background-color: #000;
     border-radius: 5px;
     position: relative;
+    width: 100%;
 }
 
 .demo-video--play-button--container {
@@ -85,14 +98,16 @@ main {
 }
 
 .demo-video {
-    width: 450px;
+    width: 100%;
     border-radius: 5px;
     z-index: 2;
     position: absolute;
     left: 0;
     top: 0;
+    opacity: 0;
     background: #171717;
 }
+
 
 h2 {
     font-size: 24px;
@@ -217,6 +232,21 @@ code.terminal {
     font-weight: 500;
 }
 
+.clickedFirstTime .demo-video--play-button--container {
+    display: none;
+}
+
+.clickedFirstTime.demo-video--container {
+    background-color: transparent;
+    box-shadow: none;
+    border: 0;
+    align-items: center;
+}
+
+.clickedFirstTime .demo-video {
+    opacity: 1;
+}
+
 /**
     footer
  */
@@ -253,4 +283,45 @@ footer ul:not(:last-child)::after {
     width: 450px;
     margin-left: -225px;
     background: #fff;
+    z-index: 99;
+}
+
+/**
+    Media
+ */
+@media only screen and (max-width: 368px) {
+    .demo-video--container {
+        overflow: visible;
+        height: 200px;
+    }
+
+    .cultured-man {
+        display: none;
+    }
+    
+    .github-corner {
+        display: none;
+    }
+
+    .github-banner {
+        display: block;
+        width: 100%;
+        padding: 20px;
+        font-family: Consolas, monaco, monospace;
+        text-align: center;
+        background-color: #000;
+        font-size: 14px;
+        color: #fff;
+        margin: 0;
+    }
+
+    .demo-video {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 250px) {
+    body {
+        display: block;
+    }
 }

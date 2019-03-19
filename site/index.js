@@ -31,13 +31,17 @@ function renderPlayButton() {
 
 const COPY_SUCCESS_CLASS = 'copySuccess';
 
-function copyTextInElement(copyEl) {
-    const inputEl = copyEl.parentNode.childNodes[1];
+/**
+ * Performs copy function on input element that is previous to the copy button
+ * @param copyButtonEl
+ */
+function copyTextInElement(copyButtonEl) {
+    const inputEl = copyButtonEl.previousElementSibling;
 
     inputEl.select();
 
-    copyEl.innerText = 'Copied!';
-    copyEl.classList.add(COPY_SUCCESS_CLASS);
+    copyButtonEl.innerText = 'Copied!';
+    copyButtonEl.classList.add(COPY_SUCCESS_CLASS);
 
     try {
         document.execCommand('copy');
@@ -45,8 +49,8 @@ function copyTextInElement(copyEl) {
     }
 
     setTimeout(function () {
-        copyEl.innerText = 'Copy';
-        copyEl.classList.remove(COPY_SUCCESS_CLASS)
+        copyButtonEl.innerText = 'Copy';
+        copyButtonEl.classList.remove(COPY_SUCCESS_CLASS)
     }, 800)
 }
 

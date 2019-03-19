@@ -36,7 +36,10 @@ On OSx, this would be the same thing as doing the following:
     ```
     
     And you will be redirected to your browser of choice, opening your link
-    
+
+## Experimental new features!
+Try out the browser extensions with Quicklinks server - [Documentation](https://github.com/4shub/quicklinks/blob/master/docs/SERVER.md)
+
 ## Contributing
 Fork this code and open a PR, all code is welcome as long as it follows the code of conduct!
 

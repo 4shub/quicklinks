@@ -156,26 +156,60 @@ li::before {
 /**
     Terminal/code UI
  */
-code {
+.code {
+    width: 100%;
+    border: initial;
+    background: transparent;
     font-family: Consolas, monaco, monospace;
-    display: block;
     text-align: left;
     color: #222;
     font-size: 16px;
+    display: flex;
 }
 
-code.terminal::before {
+.code.terminal::before {
     content: '>';
     margin-right: 15px;
 }
 
-code.terminal {
+.code[disabled] {
+    background-color: transparent;
+}
+
+.code.terminal {
     max-width: 400px;
     width: 100%;
     background-color: #fff;
     margin: 20px 0;
     border-radius: 5px;
     padding: 10px 15px;
+}
+
+.code input {
+    flex: 1;
+    border: 0;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.code .copy {
+    font-size: 13px;
+    align-self: center;
+    border: 1px solid;
+    padding: 3px 4px;
+    opacity: 0.6;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: opacity 500ms;
+}
+
+.code .copy:hover {
+    opacity: 1;
+}
+
+.copy.copySuccess {
+    color: #234099;
+    opacity: 1;
 }
 
 /**

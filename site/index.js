@@ -23,12 +23,48 @@ function renderPlayButton() {
     playContainer.addEventListener('click', playVideo);
 
     playButton.addEventListener('keypress', function (e) {
-        if (e.keyCode == 13) {
+        if (e.keyCode === 13) {
             playVideo();
         }
     });
 }
 
+const COPY_SUCCESS_CLASS = 'copySuccess';
+
+function copyTextInElement(copyEl) {
+    const inputEl = copyEl.parentNode.childNodes[1];
+
+    inputEl.select();
+
+    copyEl.innerText = 'Copied!';
+    copyEl.classList.add(COPY_SUCCESS_CLASS);
+
+    try {
+        document.execCommand('copy');
+    } catch(err) {
+    }
+
+    setTimeout(function () {
+        copyEl.innerText = 'Copy';
+        copyEl.classList.remove(COPY_SUCCESS_CLASS)
+    }, 800)
+}
+
+function enableCopyOnCode() {
+    const copyFunctions = document.getElementsByClassName('copy');
+
+    Array.from(copyFunctions).forEach(function (el) {
+       el.addEventListener('keydown', function (e) {
+           if (e.keyCode === 13) {
+               copyTextInElement(el);
+           }
+       });
+
+        el.addEventListener('click', copyTextInElement.bind(null, el));
+    });
+}
+
 window.onload = function () {
     renderPlayButton();
+    enableCopyOnCode();
 };

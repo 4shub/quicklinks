@@ -72,27 +72,33 @@
             </h2>
             <ol>
                 <li>
-                    <div class="instruction">Install the Tool</div>
-                    <code class="terminal applyShadow" tabindex="0">pip install quicklinks</code>
+                    <label for="initial-installation-instructions" class="instruction">Install the Tool</label>
+                    <div class="terminal code applyShadow">
+                        <input id="initial-installation-instructions" aria-label="Command to install the tool" value="pip install quicklinks" readonly>
+                        <div tabindex="0" class="copy">Copy</div>
+                    </div>
                     <div class="footnote">
                         Requires <a rel="noopener noreferrer" target="_blank" href="https://www.python.org/">Python 3.7</a> and <a rel="noopener noreferrer" target="_blank" href="https://pip.pypa.io/en/stable/installing/">pip</a> installed
                     </div>
                 </li>
                 <li>
-                    <div class="instruction">Create a ~/.quicklinks file and start making links</div>
+                    <label for="update-quicklinks-file-step" class="instruction">Create a ~/.quicklinks file and start making links</label>
                     <div class="text-editor applyShadow">
                         <div class="text-editor--header">
-                            <code tabindex="0" class="text-editor--filename">~/.quicklinks</code>
+                            <input aria-label="Path to save quicklinks file in" class="code text-editor--filename" readonly value="~/.quicklinks" />
                             <div class="text-editor--close"></div>
                         </div>
                         <div class="text-editor--main">
-                            <code tabindex="0">sprint:https://jira.com</code>
+                            <input id="update-quicklinks-file-step" aria-label="Text to paste in quicklinks file as an example" class="code" readonly value="sprint:https://jira.com" />
                         </div>
                     </div>
                 </li>
                 <li>
-                    <div class="instruction">Run the command and enjoy!</div>
-                    <code tabindex="0" class="terminal applyShadow">ql sprint</code>
+                    <label for="run-command" class="instruction">Run the command and enjoy!</label>
+                    <div class="terminal code applyShadow">
+                        <input id="run-command" tabindex="0" readonly value="ql sprint">
+                        <div tabindex="0" class="copy">Copy</div>
+                    </div>
                 </li>
             </ol>
         </main>
@@ -103,7 +109,7 @@
                     <ul><a href="https://shub.club">shub.club</a></ul>
                     <ul><a href="https://github.com/4shub/quicklinks/issues">feedback</a></ul>
                     <ul><a href="https://github.com/4shub/quicklinks">contribute</a></ul>
-                    <ul>v0.1.2</ul>
+                    <ul><a href="https://pypi.org/project/quicklinks/">v0.1.2</a></ul>
                 </ol>
             </menu>
         </footer>

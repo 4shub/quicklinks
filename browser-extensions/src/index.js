@@ -1,5 +1,5 @@
 // Defaults
-const SERVER_BASE = 'http://localhost:1867';
+const SERVER_BASE = 'http://0.0.0.0:1867';
 
 /* Endpoints */
 const endpoints = {

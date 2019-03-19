@@ -50,14 +50,14 @@
         </header>
         <main>
             <div id="demo-video-container" class="demo-video--container applyShadow">
-                <div id="demo-play-container" class="applyShadow noBorder demo-video--play-button--container hideOnNoScript">
+                <div id="demo-play-container" class="applyShadow thickWhiteBorder demo-video--play-button--container hideOnNoScript">
                     <div tabindex="1" id="demo-play-button" class="demo-video--play-button"></div>
                     <div class="demo-video--filename">demo.mp4</div>
                 </div>
                 <video
                     id="demo-video"
                     aria-label='Video demonstrating how this utility is used. Please read captions to get context'
-                    class="demo-video"
+                    class="demo-video applyShadow thickWhiteBorder"
                     controls
                     poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                 >
@@ -73,7 +73,7 @@
             <ol>
                 <li>
                     <div class="instruction">Install the Tool</div>
-                    <code class="terminal applyShadow">pip install quicklinks</code>
+                    <code class="terminal applyShadow" tabindex="0">pip install quicklinks</code>
                     <div class="footnote">
                         Requires <a rel="noopener noreferrer" target="_blank" href="https://www.python.org/">Python 3.7</a> and <a rel="noopener noreferrer" target="_blank" href="https://pip.pypa.io/en/stable/installing/">pip</a> installed
                     </div>
@@ -82,17 +82,17 @@
                     <div class="instruction">Create a ~/.quicklinks file and start making links</div>
                     <div class="text-editor applyShadow">
                         <div class="text-editor--header">
-                            <code class="text-editor--filename">~/.quicklinks</code>
+                            <code tabindex="0" class="text-editor--filename">~/.quicklinks</code>
                             <div class="text-editor--close"></div>
                         </div>
                         <div class="text-editor--main">
-                            <code>sprint:https://jira.com</code>
+                            <code tabindex="0">sprint:https://jira.com</code>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="instruction">Run the command and enjoy!</div>
-                    <code class="terminal applyShadow">ql sprint</code>
+                    <code tabindex="0" class="terminal applyShadow">ql sprint</code>
                 </li>
             </ol>
         </main>
@@ -101,6 +101,9 @@
                 <ol>
                     <ul>Shubham Naik &copy; 2019</ul>
                     <ul><a href="https://shub.club">shub.club</a></ul>
+                    <ul><a href="https://github.com/4shub/quicklinks/issues">feedback</a></ul>
+                    <ul><a href="https://github.com/4shub/quicklinks">contribute</a></ul>
+                    <ul>v0.1.2</ul>
                 </ol>
             </menu>
         </footer>

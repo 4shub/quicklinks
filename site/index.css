@@ -74,7 +74,6 @@ main {
     justify-content: center;
     cursor: pointer;
     background-color: #000;
-    border: 5px solid #fff;
     flex-direction: column;
 }
 
@@ -225,6 +224,10 @@ code.terminal {
     border: 1px solid #eaeaea;
 }
 
+.applyShadow.thickWhiteBorder {
+    border: 5px solid #fff;
+}
+
 .bold {
     font-weight: 500;
 }
@@ -251,6 +254,12 @@ code.terminal {
 footer {
     font-size: 14px;
     text-align: center;
+    color: #333;
+}
+
+footer a {
+    color: initial;
+    text-decoration: none;
 }
 
 footer ol {

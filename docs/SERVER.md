@@ -5,7 +5,7 @@ Quicklinks server is an optional script that runs alongside with quicklinks that
 To start Quicklinks Server, all you need to do is run the following:
 
 ```bash
-sudo ql --start-server
+ql --start-server
 ```
 
 To turn off the server, run:

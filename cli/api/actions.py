@@ -3,6 +3,7 @@ from shutil import move
 from os import fdopen, remove
 from pathlib import Path
 
+import re
 import os
 
 # default file path for ~/.quicklinks on computer
@@ -24,6 +25,9 @@ def append_or_update_quicklink(key, url):
     :param url: url of a website to quicklink to
     """
 
+    if not re.match("https?://", url):
+        url = 'http://' + url
+
     updated = False
 
     fh, abs_path = mkstemp()
@@ -38,6 +42,8 @@ def append_or_update_quicklink(key, url):
                 if not line:
                     continue
 
+                line = line + '\n'
+
                 if line.split(':', 1)[0] == key:
                     new_file.write(str_to_write)
                     updated = True
@@ -45,7 +51,7 @@ def append_or_update_quicklink(key, url):
                     new_file.write(line)
 
             if not updated:
-                new_file.write('\n\n%s\n' % str_to_write)
+                new_file.write('%s\n' % str_to_write)
     except PermissionError:
         send_permission_error()
 

@@ -103,7 +103,7 @@ def operation_handler():
     elif operation == '--list':
         quicklinks_list = api.list_quicklinks()
 
-        print(quicklinks_list)
+        print('\n'.join(quicklinks_list))
 
     elif operation == '--help':
         cli_help_text()

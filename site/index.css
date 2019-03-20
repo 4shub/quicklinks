@@ -126,7 +126,7 @@ ol, ul, li {
     padding: 0;
 }
 
-li {
+.instruction-list li {
     list-style-type: none;
     position: relative;
     counter-increment: number;
@@ -136,7 +136,7 @@ li {
     margin: 20px;
 }
 
-li::before {
+.instruction-list li::before {
     content: counter(number)" ";
     border: 3px solid;
     font-weight: 600;
@@ -197,7 +197,7 @@ li::before {
     align-self: center;
     border: 1px solid;
     padding: 3px 4px;
-    opacity: 0.6;
+    opacity: 0.8;
     border-radius: 3px;
     cursor: pointer;
     transition: opacity 500ms;
@@ -296,15 +296,11 @@ footer a {
     text-decoration: none;
 }
 
-footer ol {
+footer li {
     display: inline-block;
 }
 
-footer ul {
-    display: inline;
-}
-
-footer ul:not(:last-child)::after {
+footer li:not(:last-child)::after {
     content: '|';
     padding: 10px;
 }

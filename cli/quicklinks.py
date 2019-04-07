@@ -9,19 +9,21 @@ import api
 default_file_name = api.get_file_name()
 
 
-def check_for_invalid_index(argIndex, errMessage = ''):
-    if len(sys.argv) <= argIndex:
-        if errMessage:
-            print(errMessage)
+def check_for_invalid_index(arg_index, error_message=''):
+    if len(sys.argv) <= arg_index:
+        if error_message:
+            print(error_message)
         else:
             print('You are missing an argument')
 
         exit(0)
 
+
 def check_if_quicklinks_file_exists():
     if not os.path.exists(default_file_name):
         print('.quicklinks file does not exist, create one at ~/.quicklinks')
         exit(0)
+
 
 def cli_help_text():
     help_text = '''Standard quicklinks usage:
@@ -61,7 +63,9 @@ def open_existing_link(search_key):
     did_succeed = api.search_for_value(search_key, open_link)
 
     if not did_succeed:
-        raise ValueError('No quicklink found for this key! \nPlease edit your ~/.quicklinks file or use ql --set <key> <url>')
+        raise ValueError('''No quicklink found for this key!
+        Please edit your ~/.quicklinks file or use ql --set <key> <url>''')
+
 
 def operation_handler():
     check_for_invalid_index(1)
@@ -93,7 +97,9 @@ def operation_handler():
         api.append_or_update_quicklink(key, domain)
 
     elif operation == '--remove':
-        append_err_msg = 'You need to provide one value when using --remove, the key to what you want to delete \n example: ql --remove google'
+        append_err_msg = 'You need to provide one value when using --remove,' \
+                         '''the key to what you want to delete
+                         example: ql --remove google'''
         check_for_invalid_index(2, append_err_msg)
 
         key = sys.argv[2]
@@ -115,11 +121,13 @@ def operation_handler():
 
     exit(0)
 
+
 def get_exception():
     """Helper function to work with py2.4-py3 for getting the current
     exception in a try/except block
     """
     return sys.exc_info()[1]
+
 
 def main():
     try:

@@ -5,8 +5,6 @@ import os.path
 import api
 
 
-# define constants
-
 def check_for_invalid_index(arg_index, error_message=''):
     if len(sys.argv) <= arg_index:
         if error_message:

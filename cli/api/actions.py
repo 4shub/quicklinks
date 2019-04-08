@@ -1,41 +1,36 @@
-from tempfile import mkstemp
-from shutil import move
-from os import fdopen, remove
-from pathlib import Path
-
 import re
 import os
+import pathlib
+import shutil
+import tempfile
 
 # default file path for ~/.quicklinks on computer
-default_file_name = os.path.join(str(Path.home()), '.quicklinks')
-
-def get_file_name():
-    return default_file_name
-
-def send_permission_error():
-    print('\nQuicklinks cannot access this file, please enable group read write access by doing the following:\nsudo chmod 604 ~/.quicklinks\n')
-    exit(0)
+DEFAULT_FILE = os.path.join(str(pathlib.Path.home()), '.quicklinks')
+PERMISSION_ERROR_STRING = '''
+    Quicklinks cannot access this file, please enable group read write
+    access by doing the following:
+    sudo chmod 604 ~/.quicklinks'''
 
 
 def append_or_update_quicklink(key, url):
     """
-    Adds a quicklink to the ~/.quicklinks file or updates an existing quicklink given a key and url
+    Adds a quicklink to the ~/.quicklinks file or updates an existing quicklink
+    given a key and url.
 
-    :param key: key of quicklink to add/update
-    :param url: url of a website to quicklink to
+    :param key: key of quicklink to add/update.
+    :param url: url of a website to quicklink.
     """
 
     if not re.match("https?://", url):
-        url = 'http://' + url
+        url = 'http://{}'.format(url)
 
     updated = False
-
-    fh, abs_path = mkstemp()
-
-    str_to_write = '%s:%s' % (key, url)
+    fh, abs_path = tempfile.mkstemp()
+    str_to_write = '{}:{}'.format(key, url)
 
     try:
-        with fdopen(fh, 'w') as new_file, open(default_file_name) as old_file:
+        # TODO: Switch to CSV
+        with os.fdopen(fh, 'w') as new_file, open(DEFAULT_FILE) as old_file:
             for line in old_file:
                 line = line.strip()
 
@@ -53,10 +48,11 @@ def append_or_update_quicklink(key, url):
             if not updated:
                 new_file.write('%s\n' % str_to_write)
     except PermissionError:
-        send_permission_error()
+        raise PermissionError(PERMISSION_ERROR_STRING)
 
-    remove(default_file_name)
-    move(abs_path, default_file_name)
+    os.remove(DEFAULT_FILE)
+    shutil.move(abs_path, DEFAULT_FILE)
+
 
 def remove_quicklink(key):
     """
@@ -65,20 +61,21 @@ def remove_quicklink(key):
     :param key: key of quicklink to delete
     """
 
-    fh, abs_path = mkstemp()
-
-    with fdopen(fh, 'w') as new_file, open(default_file_name) as old_file:
+    fh, abs_path = tempfile.mkstemp()
+    # TODO: Switch to CSV
+    with os.fdopen(fh, 'w') as new_file, open(DEFAULT_FILE) as old_file:
         for line in old_file:
             line = line.strip()
 
             if not line:
                 continue
 
-            if not (line.split(':', 1)[0] == key):
+            if not line.split(':', 1)[0] == key:
                 new_file.write(line)
 
-    remove(default_file_name)
-    move(abs_path, default_file_name)
+    os.remove(DEFAULT_FILE)
+    shutil.move(abs_path, DEFAULT_FILE)
+
 
 def list_quicklinks():
     """
@@ -88,11 +85,12 @@ def list_quicklinks():
 
     quicklinks_list = []
 
-    with open(default_file_name) as file:
+    with open(DEFAULT_FILE) as file:
         for line in file:
             quicklinks_list.append(line.strip())
 
     return quicklinks_list
+
 
 def search_for_value(search_key, callback):
     """
@@ -105,7 +103,8 @@ def search_for_value(search_key, callback):
     succeeded = False
 
     try:
-        with open(default_file_name) as file:
+        # TODO: Switch to CSV
+        with open(DEFAULT_FILE) as file:
             for line in file:
                 line = line.strip()
 
@@ -118,8 +117,9 @@ def search_for_value(search_key, callback):
                         succeeded = True
                         callback(shortcut, domain)
                 except ValueError:
-                    raise 'An error has occured'
+                    print('An error has occurred')
+                    raise
     except PermissionError:
-        send_permission_error()
+        raise PermissionError(PERMISSION_ERROR_STRING)
 
     return succeeded

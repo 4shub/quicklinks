@@ -6,8 +6,6 @@ import api
 
 
 # define constants
-default_file_name = api.get_file_name()
-
 
 def check_for_invalid_index(arg_index, error_message=''):
     if len(sys.argv) <= arg_index:
@@ -20,7 +18,7 @@ def check_for_invalid_index(arg_index, error_message=''):
 
 
 def check_if_quicklinks_file_exists():
-    if not os.path.exists(default_file_name):
+    if not os.path.exists(api.DEFAULT_FILE):
         print('.quicklinks file does not exist, create one at ~/.quicklinks')
         exit(0)
 
@@ -36,7 +34,7 @@ Helper commands:
         usage: ql --remove <key>
     --list: lists all your current quick links
         usage: ql --list
-    
+
 Server commands:
     --start-server: Starts Quicklinks Server
         usage: ql --start-server
@@ -49,7 +47,6 @@ Server commands:
     print(help_text)
 
 
-
 def open_existing_link(search_key):
     """
     Opens a link given particular key
@@ -57,6 +54,7 @@ def open_existing_link(search_key):
     :param search_key: key to search in the quicklinks file
     :return:
     """
+
     def open_link(shortcut, domain):
         webbrowser.open(domain, new=0, autoraise=True)
 

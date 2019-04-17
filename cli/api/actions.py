@@ -92,15 +92,12 @@ def list_quicklinks():
     return quicklinks_list
 
 
-def search_for_value(search_key, callback):
+def _search_for_value_from_file(search_key):
     """
-    Searches for a quicklink in ~/.quicklinks file
+    Helper function - does the IO to search through file.
     :param search_key: key to search in the quicklinks file
-    :param callback: callback to run after finding the search value
-    :return:
+    :return: status (whether it was found or not), shortcut, domain
     """
-
-    succeeded = False
 
     try:
         # TODO: Switch to CSV
@@ -114,12 +111,25 @@ def search_for_value(search_key, callback):
                 try:
                     shortcut, domain = line.split(':', 1)
                     if shortcut == search_key:
-                        succeeded = True
-                        callback(shortcut, domain)
+                        return True, shortcut, domain
                 except ValueError:
                     print('An error has occurred')
                     raise
     except PermissionError:
         raise PermissionError(PERMISSION_ERROR_STRING)
 
+    # No domain with that shortcut found
+    return False, None, None
+
+
+def search_for_value(search_key, callback):
+    """
+    Searches for a quicklink in ~/.quicklinks file
+    :param search_key: key to search in the quicklinks file
+    :param callback: callback to run after finding the search value
+    :return: Status (whether lookup succeeded or not).
+    """
+    succeeded, shortcut, domain = _search_for_value_from_file(search_key)
+    if succeeded:
+        callback(shortcut, domain)
     return succeeded

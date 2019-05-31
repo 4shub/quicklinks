@@ -13,12 +13,13 @@ from api.actions import *
 
 PORT = 1867
 
+
 class Server(BaseHTTPRequestHandler):
-    def send_json(self, value = { 'status': 'done' }, status_code = 200):
+    def send_json(self, value = { 'status': 'done' }, status_code=200):
         self._set_response(status_code)
         self.wfile.write(json.dumps(value).encode('utf-8'))
 
-    def send_error(self, error_text, status_code = 400):
+    def send_error(self, error_text, status_code=400):
         self._set_response(status_code)
         self.send_json({
             'error': error_text,
@@ -58,7 +59,6 @@ class Server(BaseHTTPRequestHandler):
 
         return self.send_json()
 
-
     def _set_response(self, status_code = 200):
         self.send_response(status_code)
 
@@ -77,14 +77,12 @@ class Server(BaseHTTPRequestHandler):
     def do_GET(self):
         logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
 
-
         if self.path == '/status':
             self.get_status()
             return
 
         self._set_response(404)
         self.wfile.write('404 - Not Found'.encode('utf-8'))
-
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
@@ -107,7 +105,6 @@ class Server(BaseHTTPRequestHandler):
             return
 
 
-
 def start_server_debug():
     logging.basicConfig(level=logging.INFO)
     server_address = ('', PORT)
@@ -118,6 +115,7 @@ def start_server_debug():
 
 def start_server():
     subprocess.call('ql --start-server debug > /dev/null 2>&1 &', shell=True)
+
 
 def kill_server():
     for proc in process_iter():

@@ -7,7 +7,7 @@ def read_file(fname):
 
 setup(
     name="quicklinks",
-    version='0.1.3',
+    version='0.1.4',
     author='Shubham Naik',
     author_email='shub@shub.club',
     description='Quickly navigate to websites based on shorthands you provide',
